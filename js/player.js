@@ -1,19 +1,20 @@
-function Player(genome){
-  this.x = START_X;
-  this.y = START_Y;
-  this.vx = 0;
-  this.vy = 0;
-  this.r = 6;
+class Player {
 
-  this.brain = genome;
-  this.brain.score = 0;
+  constructor(genome) {
 
-  players.push(this);
-}
+    this.x = START_X;
+    this.y = START_Y;
+    this.vx = 0;
+    this.vy = 0;
+    this.r = 6;
 
-Player.prototype = {
-  /** Update the stats */
-  update: function(){
+    this.brain = genome;
+    this.brain.score = 0;
+
+    players.push(this);
+  }
+
+  update() {
     var input = this.detect();
     var output = this.brain.activate(input);
 
@@ -40,10 +41,9 @@ Player.prototype = {
     if(this.y == 0 || this.y == HEIGHT) this.vy = -this.vy;
 
     this.score();
-  },
+  }
 
-  /** Calculate fitness of this players genome **/
-  score: function(){
+  score() {
     var dist = distance(this.x, this.y, walker.x, walker.y);
     if(!isNaN(dist) && dist < SCORE_RADIUS){
       this.brain.score += SCORE_RADIUS - dist;
@@ -51,10 +51,9 @@ Player.prototype = {
 
     // Replace highest score to visualise
     highestScore = this.brain.score > highestScore ? this.brain.score : highestScore;
-  },
+  }
 
-  /** Display the player on the field, parts borrowed from the CodingTrain */
-  show: function(){
+  show() {
     // Draw a triangle rotated in the direction of velocity
     var angle = angleToPoint(this.x, this.y, this.x + this.vx, this.y + this.vy) + HALF_PI;
     var color = activationColor(this.brain.score, highestScore);
@@ -71,10 +70,9 @@ Player.prototype = {
     endShape(CLOSE);
 
     pop();
-  },
+  }
 
-  /** Detect and normalize inputs */
-  detect: function(){
+  detect() {
     var dist = Math.sqrt(this.x, this.y, walker.x, walker.y) / Math.sqrt(WIDTH**2 + HEIGHT**2);
     var targetAngle = angleToPoint(this.x, this.y, walker.x, walker.y) / TWO_PI;
     var vx = (this.vx + MAX_SPEED) / MAX_SPEED;
@@ -87,5 +85,6 @@ Player.prototype = {
     dist = isNaN(dist) ? 0 : dist;
 
     return [vx, vy, tvx, tvy, targetAngle, dist];
-  },
-};
+  }
+
+}

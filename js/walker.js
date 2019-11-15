@@ -1,17 +1,17 @@
-function Walker(){
-  this.x = START_X;
-  this.y = START_Y;
-  this.vx = 0;
-  this.vy = 0;
+class Walker {
 
-  this.r = 10;
+  constructor() {
+    this.x = START_X;
+    this.y = START_Y;
+    this.vx = 0;
+    this.vy = 0;
+  
+    this.r = 10;
+  
+    this.angle = Math.random() * Math.PI * 2;
+  }
 
-  this.angle = Math.random() * Math.PI * 2;
-}
-
-Walker.prototype = {
-  /** Update the stats */
-  update: function(){
+  update() {
     if(Math.random() > 0.5){
       this.angle += Math.random()* 2 -1;
     }
@@ -41,20 +41,18 @@ Walker.prototype = {
       this.vy = -this.vy;
       this.angle += PI;
     }
-  },
+  }
 
-  reset: function(){
+  reset() {
     this.x = START_X;
     this.y = START_Y;
     this.vx = 0;
     this.vy = 0;
 
     this.angle = Math.random() * Math.PI * 2;
-  },
+  }
 
-
-  /** Display the walker on the field */
-  show: function(){
+  show() {
     fill(0);
     ellipse(this.x, this.y, this.r*2);
 
@@ -64,5 +62,5 @@ Walker.prototype = {
     strokeWeight(2);
     ellipse(this.x, this.y, SCORE_RADIUS*2);
     noStroke();
-  },
-};
+  }
+}

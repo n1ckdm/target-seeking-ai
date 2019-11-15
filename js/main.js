@@ -22,7 +22,7 @@ var MUTATION_RATE    = 0.3;
 var ELITISM          = Math.round(0.1 * PLAYER_AMOUNT);
 
 // Trained population
-var USE_TRAINED_POP = true;
+var USE_TRAINED_POP = false;
 
 /** Global vars */
 var neat;
